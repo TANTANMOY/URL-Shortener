@@ -7,9 +7,13 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
+  IconCopy,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 import ShortUniqueId from 'short-unique-id';
+import copy from 'copy-text-to-clipboard';
+import { Tooltip } from 'react-tooltip';
+
 const uid = new ShortUniqueId({ length: 5 });
 const randomId = uid.rnd();
 
@@ -31,6 +35,7 @@ const Form = () => {
       })
       .then((res) => {
         setPublicUrl(randomId);
+        setUrl('');
       });
   };
 
@@ -45,6 +50,7 @@ const Form = () => {
               type="text"
               className="w-96"
               onChange={(e) => setUrl(e.target.value)}
+              value={url}
               required
             />
           </div>
@@ -59,9 +65,21 @@ const Form = () => {
           </div>
         </form>
       </div>
-      <h2 className="text-white text-center mt-5">
-        {publicUrl && <a href={publicUrl}>🔗 {publicUrl}</a>}
-      </h2>
+      <Tooltip id="copyurl" content="Copied" events={['click']} />
+
+      <div className="text-white text-center mt-5 flex  justify-center">
+        {publicUrl && (
+          <button
+            onClick={() => {
+              copy(`http://localhost:3000/${publicUrl}`);
+            }}
+            data-tooltip-id="copyurl"
+            className="flex"
+          >
+            http://localhost:3000/{publicUrl} <IconCopy />
+          </button>
+        )}
+      </div>
     </main>
   );
 };
