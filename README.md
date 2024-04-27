@@ -10,6 +10,14 @@ Clone the project
  Clone this repo
 ```
 
+---
+
+## configuration files
+
+Create a configuration file for Firebase in firebase.tsx.
+
+---
+
 Install dependencies
 
 ```bash

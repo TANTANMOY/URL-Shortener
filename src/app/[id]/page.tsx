@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useEffect, useState } from 'react';
-import { db } from '../../../firebase';
+import { database } from '../../../firebase';
 import { onValue, ref } from 'firebase/database';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const page = ({ params }: { params: { id: string } }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     setLoading(true);
-    const dbData = ref(db, 'data/');
+    const dbData = ref(database, 'data/');
     onValue(dbData, (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {

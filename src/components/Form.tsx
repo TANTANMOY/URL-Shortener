@@ -1,18 +1,13 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/utils/cn';
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-  IconCopy,
-} from '@tabler/icons-react';
+import { IconCopy } from '@tabler/icons-react';
 import { useState } from 'react';
 import ShortUniqueId from 'short-unique-id';
 import copy from 'copy-text-to-clipboard';
 import { Tooltip } from 'react-tooltip';
+import { database } from '../../firebase';
 
 const Form = () => {
   const [url, setUrl] = useState<any | null>(null);
@@ -22,20 +17,10 @@ const Form = () => {
     e.preventDefault();
     const uid = new ShortUniqueId({ length: 5 });
     const randomId = uid.rnd();
-    const data = await fetch(
-      `${process.env.NEXT_PUBLIC_FIREBASE_DB_URL}/data.json`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ id: randomId, url: url }),
-      }
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setPublicUrl(randomId);
-        setUrl('');
-      });
+    const dbData = database.ref('data');
+    dbData.push({ id: randomId, url: url });
+    setPublicUrl(randomId);
+    setUrl('');
   };
 
   const handleChange = (e: any) => {
