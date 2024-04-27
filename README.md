@@ -2,6 +2,12 @@
 
 URL shortener built with NEXT.JS that stays in sync with a Firebase Realtime Database.
 
+![Capture](https://github.com/TANTANMOY/URL-Shortener/assets/40287770/c8cc035a-864d-405e-96f9-96169c059623)
+
+## Demo
+
+https://url-shortener0.vercel.app/
+
 ## Run Locally
 
 Clone the project
