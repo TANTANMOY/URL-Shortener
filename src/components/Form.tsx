@@ -14,15 +14,14 @@ import ShortUniqueId from 'short-unique-id';
 import copy from 'copy-text-to-clipboard';
 import { Tooltip } from 'react-tooltip';
 
-const uid = new ShortUniqueId({ length: 5 });
-const randomId = uid.rnd();
-
 const Form = () => {
   const [url, setUrl] = useState<any | null>(null);
   const [publicUrl, setPublicUrl] = useState<any | null>(null);
 
   const submit = async (e: any) => {
     e.preventDefault();
+    const uid = new ShortUniqueId({ length: 5 });
+    const randomId = uid.rnd();
     const data = await fetch(
       `${process.env.NEXT_PUBLIC_FIREBASE_DB_URL}/data.json`,
       {
@@ -39,6 +38,11 @@ const Form = () => {
       });
   };
 
+  const handleChange = (e: any) => {
+    setUrl(e.target.value);
+    setPublicUrl(null);
+  };
+
   return (
     <main className="min-h-screen">
       <div className="mt-8 flex flex-wrap justify-center">
@@ -49,7 +53,7 @@ const Form = () => {
               placeholder="Enter URL here"
               type="text"
               className="w-96"
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => handleChange(e)}
               value={url}
               required
             />
